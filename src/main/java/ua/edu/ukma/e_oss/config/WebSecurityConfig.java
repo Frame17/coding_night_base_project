@@ -20,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                //.antMatchers("/", "/ticket", "/mainPage").permitAll()
+                .antMatchers("/addTicket").authenticated()
                 // TODO: not to forget add path security in future @g_f0x
 
                 .anyRequest().permitAll()//authenticated()
