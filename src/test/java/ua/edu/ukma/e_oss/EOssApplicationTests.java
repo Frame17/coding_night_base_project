@@ -12,5 +12,4 @@ public class EOssApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }
