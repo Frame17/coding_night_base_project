@@ -17,17 +17,17 @@ public class TicketService {
         return savedTicked;
     }
 
-    public SCMember changeSCid(SCMember scMember, Ticket ticket){
-        int ticketID = ticket.getId();
-        SCMember newSCMember = ticketRepository.updateSCidFor(scMember, ticketID);
-        return newSCMember;
-    }
-
-    public byte changeStatus(byte status, Ticket ticket){
-        int ticketID = ticket.getId();
-        byte newStatus = ticketRepository.updateStatus(status, ticketID);
-        return newStatus;
-    }
+//    public SCMember changeSCid(SCMember scMember, Ticket ticket){
+//        int ticketID = ticket.getId();
+//        SCMember newSCMember = ticketRepository.updateSCidFor(scMember, ticketID);
+//        return newSCMember;
+//    }
+//
+//    public byte changeStatus(byte status, Ticket ticket){
+//        int ticketID = ticket.getId();
+//        byte newStatus = ticketRepository.updateStatus(status, ticketID);
+//        return newStatus;
+//    }
 
 
 }

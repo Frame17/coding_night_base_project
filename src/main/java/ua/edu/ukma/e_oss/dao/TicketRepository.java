@@ -52,14 +52,14 @@ public interface TicketRepository extends CrudRepository<Ticket, Integer> {
 
     List<Ticket> findAllByStatus(byte status);
 
-    @Modifying
-    @Query("update Ticket t set t.sc_id =?1 where t.id=?2")
-    SCMember updateSCidFor(SCMember scMember, int ticketID);
-    //TODO check
+//    @Modifying
+//    @Query("update Ticket t set t.sc_id =?1 where t.id=?2")
+//    SCMember updateSCidFor(SCMember scMember, int ticketID);
+//    //TODO check
 
-    @Modifying
-    @Query("update Ticket t set t.status =?1 where t.id=?2")
-    byte updateStatus(byte status, int ticketID);
-    //TODO check
+//    @Modifying
+//    @Query("update Ticket t set t.status =?1 where t.id=?2")
+//    byte updateStatus(byte status, int ticketID);
+//    //TODO check
 
 }
