@@ -1,10 +1,10 @@
 <html>
     <head>
-        <title>Tickets Page</title>
+        <title>Add new ticket</title>
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link href ="TicketPage.css" rel="stylesheet">
             <meta charset="utf-8">
-            <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.8.94/css/materialdesignicons.min.css">
+            <!-- <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.8.94/css/materialdesignicons.min.css"> -->
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     </head>
     <body>
@@ -29,44 +29,18 @@
                     </div>
                   </nav>
         <div class="main container-fluid">
-            <h2>Список тікетів</h2>
-        <div class="table-responsive">
-            <table class ="table table-striped table-sm">
-                <thead >
-<tr lang="uk">
-    <th>#</th>
-    <th>Назва</th>
-    
-    <th>Статус</th>
-    <th>Дата створення</th>
-</tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Neon Toilet</td>
-                        
-                        <td>In process</td>
-                        <td>01.01.0001</td>
-                    </tr>
-                    <tr> <td>2</td>
-                        <td>Golomozda Deacan</td>
-                        
-                        <td>Done</td>
-                        <td>Today</td></tr>
-                    <tr> <td>3</td>
-                        <td>NT</td>
-                        
-                        <td>Sent</td>
-                        <td>Yesterday</td></tr>
-                    <tr> <td>4</td>
-                        <td>Primaty bez filtra</td>
-                       
-                        <td>Denied</td>
-                        <td>15.09.2018</td></tr>
-                </tbody>
-            </table>
-        </div>
+            <h2>Додання нового запиту</h2>
+            <form lang="uk">
+                    <div class="form-group">
+                      <label for="form_name">Назва запиту</label>
+                      <input type="email" class="form-control" id="form_name"  placeholder="Введіть назву запиту">
+                    </div>
+                    <div class="form-group">
+                            <label for="form_textarea">Текст запиту</label>
+                            <textarea class="form-control" id="form_textarea" rows="7"></textarea>
+                          </div>
+                    <button type="submit" class="btn btn-primary">Відправити</button>
+                  </form>
         </div>
         
     </body>
