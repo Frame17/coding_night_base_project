@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.edu.ukma.e_oss.model.Answer;
 import ua.edu.ukma.e_oss.model.SCMember;
 import ua.edu.ukma.e_oss.model.Ticket;
+import ua.edu.ukma.e_oss.model.User;
 import ua.edu.ukma.e_oss.service.AnswerService;
 import ua.edu.ukma.e_oss.service.SCMemberService;
 import ua.edu.ukma.e_oss.service.TicketService;
+import ua.edu.ukma.e_oss.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -21,12 +25,14 @@ public class MainLogicController {
     private final SCMemberService scMemberService;
     private final TicketService ticketService;
     private final AnswerService answerService;
+    private final UserService userService;
 
     @Autowired
-    public MainLogicController(SCMemberService scMemberService, TicketService ticketService, AnswerService answerService) {
+    public MainLogicController(SCMemberService scMemberService, TicketService ticketService, AnswerService answerService, UserService userService) {
         this.scMemberService = scMemberService;
         this.ticketService = ticketService;
         this.answerService = answerService;
+        this.userService = userService;
     }
 
     @GetMapping("/ticket")
@@ -57,7 +63,12 @@ public class MainLogicController {
     }
 
     @GetMapping("/addTicket")
-    private String getAddTicket(Model model) {
+    private String getAddTicket(HttpServletRequest request, Model model) throws NoSuchFieldException {
+        String username = request.getUserPrincipal().getName();
+        Optional<User> userOptional = userService.findByName(username);
+        if (!userOptional.isPresent())
+            throw new NoSuchFieldException("No user with username :'" + username + "'");
+        model.addAttribute("user", userOptional.get());
         return "addTicket";
     }
 }
