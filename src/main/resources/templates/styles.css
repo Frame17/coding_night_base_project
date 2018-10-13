@@ -7,7 +7,7 @@ nav.orange{
 .active{
     opacity: 0.9;
 }
-.container {
+.container, .container-fluid {
     margin-top: 25px;
 }
 a {
