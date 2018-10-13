@@ -15,64 +15,63 @@ public class TicketService {
     @Autowired
     private TicketRepository ticketRepository;
 
-    Ticket save(Ticket ticket){
+    public Ticket save(Ticket ticket){
         return ticketRepository.save(ticket);
     }
 
-
-    Iterable<Ticket> saveAll(Iterable<Ticket> tickets){
+    public Iterable<Ticket> saveAll(Iterable<Ticket> tickets){
         return ticketRepository.saveAll(tickets);
     }
 
-    Optional<Ticket> findById(Integer id){
+    public Optional<Ticket> findById(Integer id){
         return ticketRepository.findById(id);
     }
 
-    boolean existsById(Integer id){
+    public boolean existsById(Integer id){
         return ticketRepository.existsById(id);
     }
 
-    Iterable<Ticket> findAll(){
+    public Iterable<Ticket> findAll(){
         return ticketRepository.findAll();
     }
 
-    Iterable<Ticket> findAllById(Iterable<Integer> tickets){
+    public Iterable<Ticket> findAllById(Iterable<Integer> tickets){
         return ticketRepository.findAllById(tickets);
     }
 
-    long count(){
+    public long count(){
         return ticketRepository.count();
     }
 
-    void deleteById(Integer id){
+    public void deleteById(Integer id){
         ticketRepository.deleteById(id);
     }
 
-    void delete(Ticket scMember){
+    public void delete(Ticket scMember){
         ticketRepository.delete(scMember);
     }
 
-    void deleteAll(Iterable<? extends Ticket> tickets){
+    public void deleteAll(Iterable<? extends Ticket> tickets){
         ticketRepository.deleteAll(tickets);
     }
 
-    void deleteAll(){
+    public void deleteAll(){
         ticketRepository.deleteAll();
     }
 
-    Iterable<Ticket> findAllBySolver(SCMember solver){
+    public Iterable<Ticket> findAllBySolver(SCMember solver){
       return   ticketRepository.findAllBySolver(solver);
     }
 
-    Iterable<Ticket> findAllByCreator(User creator){
+    public Iterable<Ticket> findAllByCreator(User creator){
         return ticketRepository.findAllByCreator(creator);
     }
 
-    Iterable<Ticket> findAllByTitleContains(String title){
+    public Iterable<Ticket> findAllByTitleContains(String title){
         return ticketRepository.findAllByTitleContains(title);
     }
 
-    Iterable<Ticket> findAllByStatus(byte status){
+    public Iterable<Ticket> findAllByStatus(byte status){
         return ticketRepository.findAllByStatus(status);
     }
 //    public Ticket changeSCid(Ticket scMember, Ticket ticket){

@@ -56,4 +56,5 @@ public class SCMemberService {
     public void deleteAll(){
         memberRepository.deleteAll();
     }
+
 }
