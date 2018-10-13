@@ -1,24 +1,24 @@
 package ua.edu.ukma.e_oss.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class MainPageController {
 
     @GetMapping("/ticket")
-    public String getTicketPage(Model model) {
+    private String getTicketPage(Model model){
         return "ticket";
     }
 
     @GetMapping("/userPage")
-    public String getUserPage(Model model) {
+    private String getUserPage(Model model) {
         return "";  // todo - implement
     }
 
     @GetMapping("/mainPage")
-    public String getMainPage(Model model) {
+    private String getMainPage(Model model) {
         return "TicketsPage";
     }
 }
