@@ -4,3 +4,19 @@ nav.orange{
 .active{
     opacity: 0.9;
 }
+.container {
+    margin-top: 10px;
+}
+a {
+    color: #E66F20;
+    text-decoration: none !important;
+}
+.btn-primary {
+    background: #E69020;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #f9a121;
+    border: none;
+}
