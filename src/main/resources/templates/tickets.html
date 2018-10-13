@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <title>Tickets Page</title>
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,28 +42,13 @@
 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Neon Toilet</td>
+                    <tr th:each="ticket : ${tickets}">
+                        <td th:text="${ticket.id}">1</td>
+                        <td th:text="${ticket.subject}">Neon Toilet</td>
                         
-                        <td>In process</td>
-                        <td>01.01.0001</td>
+                        <td th:text="${ticket.status}">In process</td>
+                        <td th:text="${ticket.timestamp}">01.01.0001</td>
                     </tr>
-                    <tr> <td>2</td>
-                        <td>Golomozda Deacan</td>
-                        
-                        <td>Done</td>
-                        <td>Today</td></tr>
-                    <tr> <td>3</td>
-                        <td>NT</td>
-                        
-                        <td>Sent</td>
-                        <td>Yesterday</td></tr>
-                    <tr> <td>4</td>
-                        <td>Primaty bez filtra</td>
-                       
-                        <td>Denied</td>
-                        <td>15.09.2018</td></tr>
                 </tbody>
             </table>
         </div>
