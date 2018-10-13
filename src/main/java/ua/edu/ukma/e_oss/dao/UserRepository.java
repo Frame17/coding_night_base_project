@@ -20,6 +20,15 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     Iterable<User> findAll();
 
     @Override
+    boolean existsById(Integer integer);
+
+    @Override
+    Iterable<User> findAllById(Iterable<Integer> iterable);
+
+    @Override
+    long count();
+
+    @Override
     void deleteById(Integer integer);
 
     @Override

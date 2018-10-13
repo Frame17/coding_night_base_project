@@ -24,6 +24,15 @@ public interface TicketRepository extends CrudRepository<Ticket, Integer> {
     Iterable<Ticket> findAll();
 
     @Override
+    boolean existsById(Integer integer);
+
+    @Override
+    Iterable<Ticket> findAllById(Iterable<Integer> iterable);
+
+    @Override
+    long count();
+
+    @Override
     void deleteById(Integer integer);
 
     @Override
