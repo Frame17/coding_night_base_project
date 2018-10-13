@@ -2,6 +2,9 @@ package ua.edu.ukma.e_oss.dao;
 
 import org.springframework.data.repository.CrudRepository;
 import ua.edu.ukma.e_oss.model.Answer;
+import ua.edu.ukma.e_oss.model.SCMember;
+import ua.edu.ukma.e_oss.model.Ticket;
+import ua.edu.ukma.e_oss.model.User;
 
 import java.util.Optional;
 
@@ -40,4 +43,10 @@ public interface AnswerRepository extends CrudRepository<Answer, Integer> {
     default void deleteAll() {
         throw new UnsupportedOperationException();
     }
+
+    Iterable<Answer> findAllByUser (User user);
+
+    Iterable<Answer> findAllByTicket (Ticket ticket);
+
+    Iterable<Answer> findAllByScId (SCMember scMember);
 }
