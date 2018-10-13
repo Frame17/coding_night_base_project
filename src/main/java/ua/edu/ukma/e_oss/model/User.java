@@ -7,14 +7,25 @@ import javax.validation.constraints.NotNull;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotNull
     @Column(name = "name", nullable = false)
-    public final String name;
+    private String name;
+
+    public User() {
+    }
 
     public User(@NotNull String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 }

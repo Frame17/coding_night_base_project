@@ -13,16 +13,16 @@ public class Ticket {
 
     @NotNull
     @Column(name = "title", nullable = false)
-    public final String title;
+    private String title;
 
     @NotNull
     @Column(name = "text", nullable = false)
-    public final String text;
+    private String text;
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_id", nullable = false)
-    public final User creator;
+    private User creator;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sc_id")
@@ -38,7 +38,10 @@ public class Ticket {
     @NotNull
     @Column(name = "created_at", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    public final Date createdAt;
+    private Date createdAt;
+
+    public Ticket() {
+    }
 
     public Ticket(@NotNull String title, @NotNull String text, @NotNull User creator, @NotNull Date createdAt) {
         this.title = title;
@@ -66,5 +69,41 @@ public class Ticket {
 
     public void setSolver(SCMember solver) {
         this.solver = solver;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 }
