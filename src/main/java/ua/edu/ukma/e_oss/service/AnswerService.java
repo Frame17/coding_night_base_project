@@ -60,15 +60,15 @@ public class AnswerService {
         answerRepository.deleteAll();
     }
 
-    Iterable<Answer> findAllByUser (User user){
+    public Iterable<Answer> findAllByUser (User user){
         return answerRepository.findAllByUser(user);
     }
 
-    Iterable<Answer> findAllByTicket (Ticket ticket){
+    public Iterable<Answer> findAllByTicket (Ticket ticket){
         return answerRepository.findAllByTicket(ticket);
     }
 
-    Iterable<Answer> findAllByScId (SCMember scMember){
+    public Iterable<Answer> findAllByScId (SCMember scMember){
         return answerRepository.findAllByScId(scMember);
     }
 }
