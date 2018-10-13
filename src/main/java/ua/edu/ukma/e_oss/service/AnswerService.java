@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ua.edu.ukma.e_oss.dao.AnswerRepository;
 import ua.edu.ukma.e_oss.model.Answer;
 
+
 @Service
 public class AnswerService {
 
@@ -15,4 +16,5 @@ public class AnswerService {
         Answer savedAnswer = answerRepository.save(answer);
         return savedAnswer;
     }
+
 }
