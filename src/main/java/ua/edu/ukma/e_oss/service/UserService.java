@@ -14,48 +14,48 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    User save(User user){
+    public User save(User user) {
         return userRepository.save(user);
     }
 
 
-    Iterable<User> saveAll(Iterable<User> users){
+    public Iterable<User> saveAll(Iterable<User> users) {
         return userRepository.saveAll(users);
     }
 
-    Optional<User> findById(Integer id){
+    public Optional<User> findById(Integer id) {
         return userRepository.findById(id);
     }
 
-    boolean existsById(Integer id){
+    public boolean existsById(Integer id) {
         return userRepository.existsById(id);
     }
 
-    Iterable<User> findAll(){
+    public Iterable<User> findAll() {
         return userRepository.findAll();
     }
 
-    Iterable<User> findAllById(Iterable<Integer> users){
+    public Iterable<User> findAllById(Iterable<Integer> users) {
         return userRepository.findAllById(users);
     }
 
-    long count(){
+    public long count() {
         return userRepository.count();
     }
 
-    void deleteById(Integer id){
+    public void deleteById(Integer id) {
         userRepository.deleteById(id);
     }
 
-    void delete(User scMember){
+    public void delete(User scMember) {
         userRepository.delete(scMember);
     }
 
-    void deleteAll(Iterable<? extends User> users){
+    public void deleteAll(Iterable<? extends User> users) {
         userRepository.deleteAll(users);
     }
 
-    void deleteAll(){
+    public void deleteAll() {
         userRepository.deleteAll();
     }
 }
