@@ -3,7 +3,9 @@ package ua.edu.ukma.e_oss.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.e_oss.dao.TicketRepository;
+import ua.edu.ukma.e_oss.model.SCMember;
 import ua.edu.ukma.e_oss.model.Ticket;
+import ua.edu.ukma.e_oss.model.User;
 
 import java.util.Optional;
 
@@ -14,40 +16,32 @@ public class TicketService {
     private TicketRepository ticketRepository;
 
     Ticket save(Ticket ticket){
-        Ticket savedTicked = ticketRepository.save(ticket);
-        return savedTicked;
+        return ticketRepository.save(ticket);
     }
 
 
     Iterable<Ticket> saveAll(Iterable<Ticket> tickets){
-        Iterable savedIterable = ticketRepository.saveAll(tickets);
-        return savedIterable;
+        return ticketRepository.saveAll(tickets);
     }
 
-    Optional<Ticket> findByYd(Integer id){
-        Optional<Ticket> foundMember = ticketRepository.findById(id);
-        //TODO validation
-        return foundMember;
+    Optional<Ticket> findById(Integer id){
+        return ticketRepository.findById(id);
     }
 
     boolean existsById(Integer id){
-        boolean exists=ticketRepository.existsById(id);
-        return exists;
+        return ticketRepository.existsById(id);
     }
 
     Iterable<Ticket> findAll(){
-        Iterable<Ticket> all = ticketRepository.findAll();
-        return all;
+        return ticketRepository.findAll();
     }
 
     Iterable<Ticket> findAllById(Iterable<Integer> tickets){
-        Iterable<Ticket> allById = ticketRepository.findAllById(tickets);
-        return allById;
+        return ticketRepository.findAllById(tickets);
     }
 
     long count(){
-        long count = ticketRepository.count();
-        return count;
+        return ticketRepository.count();
     }
 
     void deleteById(Integer id){
@@ -66,6 +60,21 @@ public class TicketService {
         ticketRepository.deleteAll();
     }
 
+    Iterable<Ticket> findAllBySolver(SCMember solver){
+      return   ticketRepository.findAllBySolver(solver);
+    }
+
+    Iterable<Ticket> findAllByCreator(User creator){
+        return ticketRepository.findAllByCreator(creator);
+    }
+
+    Iterable<Ticket> findAllByTitleContains(String title){
+        return ticketRepository.findAllByTitleContains(title);
+    }
+
+    Iterable<Ticket> findAllByStatus(byte status){
+        return ticketRepository.findAllByStatus(status);
+    }
 //    public Ticket changeSCid(Ticket scMember, Ticket ticket){
 //        int ticketID = ticket.getId();
 //        Ticket newTicket = ticketRepository.updateSCidFor(scMember, ticketID);

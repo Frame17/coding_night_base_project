@@ -46,13 +46,13 @@ public interface TicketRepository extends CrudRepository<Ticket, Integer> {
         throw new UnsupportedOperationException();
     }
 
-    List<Ticket> findAllBySolver(SCMember solver);
+    Iterable<Ticket> findAllBySolver(SCMember solver);
 
-    List<Ticket> findAllByCreator(User creator);
+    Iterable<Ticket> findAllByCreator(User creator);
 
-    List<Ticket> findAllByTitleContains(String title);
+    Iterable<Ticket> findAllByTitleContains(String title);
 
-    List<Ticket> findAllByStatus(byte status);
+    Iterable<Ticket> findAllByStatus(byte status);
 
 //    @Modifying
 //    @Query("update Ticket t set t.sc_id =?1 where t.id=?2")

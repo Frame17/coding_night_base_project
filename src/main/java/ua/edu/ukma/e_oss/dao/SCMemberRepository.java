@@ -5,7 +5,7 @@ import ua.edu.ukma.e_oss.model.SCMember;
 
 import java.util.Optional;
 
-public interface ScMemberRepository extends CrudRepository<SCMember, Integer> {
+public interface SCMemberRepository extends CrudRepository<SCMember, Integer> {
     @Override
     <S extends SCMember> S save(S s);
 
