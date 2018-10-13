@@ -39,11 +39,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         List<UserDetails> users = new ArrayList<>();
         UserDetails user =
                 User.withDefaultPasswordEncoder()
-                        .username("user")
+                        .username("user1")
                         .password("password")
-                        .roles("USER")
+                        .roles("User")
                         .build();
         users.add(user);
+        users.add(User.withDefaultPasswordEncoder()
+                .username("user2")
+                .password("password")
+                .roles("USER")
+                .build());
+        users.add(User.withDefaultPasswordEncoder()
+                .username("sc1")
+                .password("dontwork")
+                .roles("USER", "SC")
+                .build());
+        users.add(User.withDefaultPasswordEncoder()
+                .username("sc2")
+                .password("dontwork")
+                .roles("USER", "SC")
+                .build());
         // TODO: add other users @g_f0x
         return new InMemoryUserDetailsManager(users);
     }
