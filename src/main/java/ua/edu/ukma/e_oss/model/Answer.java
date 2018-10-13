@@ -34,7 +34,7 @@ public class Answer {
     private Byte status = null;
 
     @Column(name = "reply")
-    private String reply = null;
+    private String reply;
 
     @NotNull
     @Column(name = "answered_at", nullable = false)
@@ -53,7 +53,11 @@ public class Answer {
         this.ticket = ticket;
         this.user = user;
         this.scId = scId;
+        if(scId != null)
+            this.ticket.setSolver(scId);
         this.status = status;
+        if (status != null)
+            this.ticket.setStatus(status);
         this.reply = reply;
         this.answeredAt = answeredAt;
     }
