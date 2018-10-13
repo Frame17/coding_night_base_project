@@ -55,4 +55,9 @@ public class MainLogicController {
         model.addAttribute("tickets", tickets);
         return "tickets";
     }
+
+    @GetMapping("/addTicket")
+    private String getAddTicket(Model model) {
+        return "addTicket";
+    }
 }
