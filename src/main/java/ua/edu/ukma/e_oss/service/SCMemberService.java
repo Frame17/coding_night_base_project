@@ -13,49 +13,47 @@ public class SCMemberService {
     @Autowired
     private SCMemberRepository memberRepository;
 
-    SCMember save(SCMember member){
+    public SCMember save(SCMember member){
         return memberRepository.save(member);
     }
 
-
-    Iterable<SCMember> saveAll(Iterable<SCMember> members){
+    public Iterable<SCMember> saveAll(Iterable<SCMember> members){
         return memberRepository.saveAll(members);
     }
 
-    Optional<SCMember> findById(Integer id){
+    public Optional<SCMember> findById(Integer id){
         return memberRepository.findById(id);
     }
 
-    boolean existsById(Integer id){
+    public boolean existsById(Integer id){
         return memberRepository.existsById(id);
     }
 
-    Iterable<SCMember> findAll(){
+    public Iterable<SCMember> findAll(){
         return memberRepository.findAll();
     }
 
-    Iterable<SCMember> findAllById(Iterable<Integer> members){
+    public Iterable<SCMember> findAllById(Iterable<Integer> members){
         return memberRepository.findAllById(members);
     }
 
-    long count(){
+    public long count(){
         return memberRepository.count();
     }
 
-    void deleteById(Integer id){
+    public void deleteById(Integer id){
         memberRepository.deleteById(id);
     }
 
-    void delete(SCMember scSCMember){
+    public void delete(SCMember scSCMember){
         memberRepository.delete(scSCMember);
     }
 
-    void deleteAll(Iterable<? extends SCMember> members){
+    public void deleteAll(Iterable<? extends SCMember> members){
         memberRepository.deleteAll(members);
     }
 
-    void deleteAll(){
+    public void deleteAll(){
         memberRepository.deleteAll();
     }
-
 }
