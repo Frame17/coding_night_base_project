@@ -15,12 +15,12 @@ public class Answer {
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ticket_id", nullable = false)
-    public final Ticket ticket;
+    private Ticket ticket;
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    public final User user;
+    private User user;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sc_id")
@@ -38,7 +38,10 @@ public class Answer {
 
     @NotNull
     @Column(name = "answered_at", nullable = false)
-    public final Date answeredAt;
+    private Date answeredAt;
+
+    public Answer() {
+    }
 
     // for user
     public Answer(@NotNull Ticket ticket, @NotNull User user, @NotNull String reply, @NotNull Date answeredAt) {
@@ -78,4 +81,43 @@ public class Answer {
         return reply;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setScId(SCMember scId) {
+        this.scId = scId;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
+
+    public Date getAnsweredAt() {
+        return answeredAt;
+    }
+
+    public void setAnsweredAt(Date answeredAt) {
+        this.answeredAt = answeredAt;
+    }
 }
