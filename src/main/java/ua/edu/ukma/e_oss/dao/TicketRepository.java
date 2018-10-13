@@ -42,7 +42,9 @@ public interface TicketRepository extends CrudRepository<Ticket, Integer> {
     void deleteAll(Iterable<? extends Ticket> iterable);
 
     @Override
-    void deleteAll();
+    default void deleteAll() {
+        throw new UnsupportedOperationException();
+    }
 
     List<Ticket> findAllBySolver(SCMember solver);
 

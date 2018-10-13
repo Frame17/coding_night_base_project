@@ -37,5 +37,7 @@ public interface ScMemberRepository extends CrudRepository<SCMember, Integer> {
     void deleteAll(Iterable<? extends SCMember> iterable);
 
     @Override
-    void deleteAll();
+    default void deleteAll() {
+        throw new UnsupportedOperationException();
+    }
 }

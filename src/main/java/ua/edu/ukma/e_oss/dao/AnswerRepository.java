@@ -37,5 +37,7 @@ public interface AnswerRepository extends CrudRepository<Answer, Integer> {
     void deleteAll(Iterable<? extends Answer> iterable);
 
     @Override
-    void deleteAll();
+    default void deleteAll() {
+        throw new UnsupportedOperationException();
+    }
 }

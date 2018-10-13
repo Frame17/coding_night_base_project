@@ -38,5 +38,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     void deleteAll(Iterable<? extends User> iterable);
 
     @Override
-    void deleteAll();
+    default void deleteAll() {
+        throw new UnsupportedOperationException();
+    }
 }
