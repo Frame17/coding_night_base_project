@@ -14,21 +14,24 @@ public class SCMember {
     @Column(name = "year", nullable = false)
     private String year;
 
-    @NotNull
+    // 0 - member
+    // 1 - assoc member
     @Column(name = "role", nullable = false)
-    private byte role;
+    public final byte role;
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    public final User user;
+
+    public SCMember(@NotNull String year, byte role, @NotNull User user) {
+        this.year = year;
+        this.role = role;
+        this.user = user;
+    }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getYear() {
@@ -37,21 +40,5 @@ public class SCMember {
 
     public void setYear(String year) {
         this.year = year;
-    }
-
-    public byte getRole() {
-        return role;
-    }
-
-    public void setRole(byte role) {
-        this.role = role;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

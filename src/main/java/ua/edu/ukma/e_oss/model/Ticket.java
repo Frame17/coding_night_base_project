@@ -13,66 +13,43 @@ public class Ticket {
 
     @NotNull
     @Column(name = "title", nullable = false)
-    private String title;
+    public final String title;
 
     @NotNull
     @Column(name = "text", nullable = false)
-    private String text;
+    public final String text;
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_id", nullable = false)
-    private User creator;
+    public final User creator;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sc_id")
     private SCMember solver;
 
+    // 0 - opened
+    // 1 - in process
+    // 2 - rejected
+    // 3 - finished
     @Column(name = "status", nullable = false)
     private byte status;
 
+    @NotNull
     @Column(name = "created_at", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    public final Date createdAt;
+
+    public Ticket(@NotNull String title, @NotNull String text, @NotNull User creator, @NotNull Date createdAt) {
+        this.title = title;
+        this.text = text;
+        this.creator = creator;
+        this.status = 0;
+        this.createdAt = createdAt;
+    }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
-
-    public SCMember getSolver() {
-        return solver;
-    }
-
-    public void setSolver(SCMember solver) {
-        this.solver = solver;
     }
 
     public byte getStatus() {
@@ -83,11 +60,11 @@ public class Ticket {
         this.status = status;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public SCMember getSolver() {
+        return solver;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setSolver(SCMember solver) {
+        this.solver = solver;
     }
 }
