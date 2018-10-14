@@ -57,8 +57,8 @@
     <hr>
     <h4>Прокоментувати або змінити запит</h4>
     <form id="answerForm" method="post">
-        <input type="hidden" name="currSc" value="1" />
-        <input type="hidden" name="currStatus" value="1" />
+        <input type="hidden" name="currSc" th:if="${ticket.solver != null}" th:value="${ticket.solver.id}" />
+        <input type="hidden" name="currStatus" th:value="${ticket.status}" />
         <div class="form-row">
             <div class="form-group col-md-6" sec:authorize="hasRole('SC')">
                 <label for="inputStatus">Статус:</label>
