@@ -45,7 +45,7 @@
                     <tr th:each="ticket : ${tickets}">
                         <td th:text="${ticket.id}">1</td>
                         <td><a th:text="${ticket.title}" th:href="@{ '/ticket?id=' + ${ticket.id}}"></a></td>
-                        <td th:text ="${ticket.author}">Trohym</td>
+                        <td th:text ="${ticket.author}">Trokhym</td>
                         <td th:text="${ticket.status}">In process</td>
                         <td th:text="${ticket.createdAt}">01.01.0001</td>
                     </tr>
