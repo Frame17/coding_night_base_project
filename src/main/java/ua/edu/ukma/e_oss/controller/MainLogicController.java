@@ -67,7 +67,8 @@ public class MainLogicController {
         Optional<Ticket> optionalTicket = ticketService.findById(id);
 
         User user = userService.findByName(username).get();
-        Optional<SCMember> scUser = scMemberService.findByUser(user);
+        Optional<SCMember> scUser = scMemberService.findByUser(user);//todo from select
+
         Ticket ticket = optionalTicket.get();
         String reply = request.getParameter("comment");
         Byte status = null; //TODO парсить
