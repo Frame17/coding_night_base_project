@@ -21,7 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 // TODO: not to forget add path security in future @g_f0x
-                .antMatchers("/mainPage", "/ticket", "/").permitAll()
+                .antMatchers("/mainPage", "/ticket", "/", "/sk.png", "/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
