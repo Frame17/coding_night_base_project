@@ -104,6 +104,7 @@ $("#submitButton").click(function() {
         alert("Немає змін для збереження");
         return;
     }
+    $("#inputAssignee").prop("disabled", false);
     $("#answerForm").submit();
 });
 
