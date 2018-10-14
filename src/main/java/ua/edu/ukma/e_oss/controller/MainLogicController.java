@@ -18,6 +18,7 @@ import ua.edu.ukma.e_oss.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.Date;
 import java.util.Optional;
 
 @Controller
@@ -27,6 +28,7 @@ public class MainLogicController {
     private final TicketService ticketService;
     private final AnswerService answerService;
     private final UserService userService;
+
 
     @Autowired
     public MainLogicController(SCMemberService scMemberService, TicketService ticketService, AnswerService answerService, UserService userService) {
@@ -80,15 +82,16 @@ public class MainLogicController {
 
 
     @PostMapping("/addTicket")
-    public String getFromMainPage(HttpServletRequest request, Model model) {
-        // UserRequest userRequest = new UserRequest(request.getParameter("text"), request.getParameter("topic"));
-        //requestService.save(userRequest);
-        //List<UserRequest> userRequests = requestService.findAll();
-        // model.addAttribute("userRequests", userRequests);
-        //  public Ticket(@NotNull String title, @NotNull String text, @NotNull User creator, @NotNull Date createdAt) {
-        Ticket ticket = new Ticket();
-        ticket.setTitle(request.getParameter("ticketTitle"));
-        ticket.setText(request.getParameter("ticketText"));
-        return "redirect:/ticket";
+    public String getFromMainPage(HttpServletRequest request, Model model) throws NoSuchFieldException {
+        String username = request.getUserPrincipal().getName();
+        Optional<User> userOptional = userService.findByName(username);
+        if (!userOptional.isPresent())
+            throw new NoSuchFieldException("No user with username :'" + username + "'");
+        Date date = new Date();
+        Ticket ticket = new Ticket(request.getParameter("title"), request.getParameter("text"),
+                userOptional.get(), date);
+        ticketService.save(ticket);
+
+        return "redirect:/ticket?id="+ticket.getId();
     }
 }
