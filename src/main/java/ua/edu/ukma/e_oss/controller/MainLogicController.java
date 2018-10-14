@@ -71,21 +71,21 @@ public class MainLogicController {
 
         Ticket ticket = optionalTicket.get();
         String reply = request.getParameter("comment");
-        Byte status = null; //TODO парсить
-
+        System.out.println(request.getParameter("status"));
+        Byte status =Byte.parseByte( request.getParameter("status"));
         Date date = new Date();
         Answer answer;
-        if (scUser.isPresent()) {
-            SCMember scMember = scUser.get();
+        if (scUser.isPresent()&&request.getParameter("sc")!=null) {
+            SCMember scMember = scMemberService.findById(Integer.parseInt(request.getParameter("sc"))).get();
             if (scMember.getId() == ticket.getSolver().getId()) scMember = null;
-           // if (status!=null&&status == ticket.getStatus()) status = null; TODO
+            if (status == ticket.getStatus()) status = null;
             answer = new Answer(ticket, user, scMember, status, reply, date);
         } else {
             answer = new Answer(ticket, user, reply, date);
         }
         answerService.save(answer);
         model.addAttribute("ticket", ticket);
-
+        model.addAttribute("answer", answer);
         return "redirect:/ticket?id="+ticket.getId();
     }
 

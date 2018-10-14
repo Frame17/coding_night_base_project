@@ -33,8 +33,8 @@
     <p th:text="${ticket.text}">У туалетах Академії дуже сумно, особливо вночі, тому хотілося б зробити час, проведений у вбиральні трохи яскравішим</p>
     <ul>
         <li>Створив: <a href="#" th:text="${ticket.creator.name}">Lolkek Cheburek</a></li>
-        <li>Призначено: <a href="#" th:text="${ticket.solver != null} ? ${ticket.solver.user.name} : 'Не призначено'">Random Dude</a></li>
-        <li th:if="${ticket.status} == 0">Стан: Не призначено</li>
+        <li>Призначено: <a href="#" th:text="${ticket.solver != null} ? ${ticket.solver.user.name} : 'В очікуванні'">Random Dude</a></li>
+        <li th:if="${ticket.status} == 0">Стан: В очікуванні</li>
         <li th:if="${ticket.status} == 1">Стан: У роботі</li>
         <li th:if="${ticket.status} == 2">Стан: Відхилено</li>
         <li th:if="${ticket.status} == 3">Стан: Виконано</li>
@@ -46,7 +46,7 @@
         <div class="card-body">
             <ul>
                 <li th:if="${answer.scId} != null">Запит призначено <span th:text="${answer.scId.user.name}"></span></li>
-                <li th:if="${answer.status} == 0">Стан запиту змінено на <i>"Не призначено"</i></li>
+                <li th:if="${answer.status} == 0">Стан запиту змінено на <i>"В очікуванні"</i></li>
                 <li th:if="${answer.status} == 1">Стан запиту змінено на <i>"У роботі"</i></li>
                 <li th:if="${answer.status} == 2">Стан запиту змінено на <i>"Відхилено"</i></li>
                 <li th:if="${answer.status} == 3">Стан запиту змінено на <i>"Виконано"</i></li>
@@ -63,7 +63,7 @@
             <div class="form-group col-md-6" sec:authorize="hasRole('SC')">
                 <label for="inputStatus">Статус:</label>
                 <select id="inputStatus" name="status" class="form-control">
-                    <option value="0">Не призначено</option>
+                    <option value="0">В очікуванні</option>
                     <option value="1" selected>У роботі</option>
                     <option value="2">Закрито</option>
                     <option value="3">Відхилено</option>
@@ -71,7 +71,7 @@
             </div>
             <div class="form-group col-md-6" sec:authorize="hasRole('SC')">
                 <label for="inputAssignee">Відповідальний:</label>
-                <select id="inputAssignee" class="form-control">
+                <select id="inputAssignee" class="form-control" name="sc">
                     <option th:each="member : ${SCmembers}" th:value="${member.id}" th:selected="${ticket.solver == member}" th:text="${member.user.name}"></option>
                 </select>
             </div>
