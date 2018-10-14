@@ -52,7 +52,7 @@ public class Answer {
     }
 
     // for sc member
-    public Answer(@NotNull Ticket ticket, @NotNull User user, SCMember scId, Byte status, String reply, @NotNull Date answeredAt) {
+    public Answer(@NotNull Ticket ticket, @NotNull User user, SCMember scId, Byte status, @NotNull String reply, @NotNull Date answeredAt) {
         this.ticket = ticket;
         this.user = user;
         this.scId = scId;
