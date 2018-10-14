@@ -37,7 +37,7 @@ public class MainLogicController {
     }
 
     @GetMapping("/ticket")
-    private String getTicketPage(@RequestParam(name = "id") int id, Model model) {
+    private String getTicketPage(@RequestParam(name = "id") int id, Model model, HttpServletRequest request) throws NoSuchFieldException  {
         Iterable<SCMember> SCmembers = scMemberService.findAll();
         Optional<Ticket> optionalTicket = ticketService.findById(id);
         if (!optionalTicket.isPresent())
@@ -48,6 +48,11 @@ public class MainLogicController {
         model.addAttribute("ticket", ticket);
         model.addAttribute("SCmembers", SCmembers);
         model.addAttribute("answers", answers);
+        String username = request.getUserPrincipal().getName();
+        Optional<User> userOptional = userService.findByName(username);
+        if (!userOptional.isPresent())
+            throw new NoSuchFieldException("No user with username :'" + username + "'");
+        model.addAttribute("user", userOptional.get());
         return "ticket";
     }
 
