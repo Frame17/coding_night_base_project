@@ -1,10 +1,11 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="utf-8">
-    <title>Запит #228 - Додати неонове освітлення до вбиралень</title>
+    <title th:text="${ticket.title}">Запит #228 - Додати неонове освітлення до вбиралень</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link href ="styles.css" rel="stylesheet">
+    <link href ="/styles.css" rel="stylesheet">
 </head>
 <body>
 <nav class="orange navbar navbar-expand-lg navbar-dark bg-dark">
@@ -28,39 +29,29 @@
     </div>
 </nav>
 <div class="container">
-    <h2>#228 - Додати неонове освітлення до вбиралень</h2>
-    <p>У туалетах Академії дуже сумно, особливо вночі, тому хотілося б зробити час, проведений у вбиральні трохи яскравішим</p>
+    <h2>#<span th:text="${ticket.id}"></span> - <span th:text="${ticket.title}"></span></h2>
+    <p th:text="${ticket.text}">У туалетах Академії дуже сумно, особливо вночі, тому хотілося б зробити час, проведений у вбиральні трохи яскравішим</p>
     <ul>
-        <li>Created: <a href="#">Lolkek Cheburek</a></li>
-        <li>Assignee: <a href="#">Random Dude</a></li>
-        <li>Стан: У роботі</li>
+        <li>Створив: <a href="#" th:text="${ticket.creator.name}">Lolkek Cheburek</a></li>
+        <li>Призначено: <a href="#" th:text="${ticket.solver != null} ? ${ticket.solver.user.name} : 'Не призначено'">Random Dude</a></li>
+        <li th:if="${ticket.status} == 0">Стан: Не призначено</li>
+        <li th:if="${ticket.status} == 1">Стан: У роботі</li>
+        <li th:if="${ticket.status} == 2">Стан: Відхилено</li>
+        <li th:if="${ticket.status} == 3">Стан: Виконано</li>
     </ul>
-    <div class="card">
+    <div class="card" th:each="answer : ${answers}">
         <div class="card-header">
-            <a href="#">Lolkek Cheburek</a> у <span>13.10.2018, 22:05</span>
-        </div>
-        <div class="card-body">
-            <p>Створено запит "Додати неонове освітлення до вбиралень"</p>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <a href="#">Random Dude</a> у <span>13.10.2018, 23:55</span>
+            <a href="#" th:text="${answer.user.name}">Lolkek Cheburek</a> у <span th:text="${answer.answeredAt}">13.10.2018, 22:05</span>
         </div>
         <div class="card-body">
             <ul>
-                <li>Запит призначено Random Dude</li>
-                <li>Стан запиту змінено на <i>"У роботі"</i></li>
+                <li th:if="${answer.scId} != null">Запит призначено <span th:text="${answer.scId.user.name}"></span></li>
+                <li th:if="${answer.status} == 0">Стан запиту змінено на <i>"Не призначено"</i></li>
+                <li th:if="${answer.status} == 1">Стан запиту змінено на <i>"У роботі"</i></li>
+                <li th:if="${answer.status} == 2">Стан запиту змінено на <i>"Відхилено"</i></li>
+                <li th:if="${answer.status} == 3">Стан запиту змінено на <i>"Виконано"</i></li>
             </ul>
-            <p>Cool! Забираю таск собі!</p>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <a href="#">Random Dude</a> у <span>14.10.2018, 01:20</span>
-        </div>
-        <div class="card-body">
-            <p>Неймовірна ідея!</p>
+            <p th:if="${answer.reply} != null" th:text="${answer.reply}">Створено запит "Додати неонове освітлення до вбиралень"</p>
         </div>
     </div>
     <hr>
@@ -69,7 +60,7 @@
         <input type="hidden" name="currSc" value="1" />
         <input type="hidden" name="currStatus" value="1" />
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" sec:authorize="hasRole('SC')">
                 <label for="inputStatus">Статус:</label>
                 <select id="inputStatus" name="status" class="form-control">
                     <option value="0">Не призначено</option>
@@ -78,17 +69,14 @@
                     <option value="3">Відхилено</option>
                 </select>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" sec:authorize="hasRole('SC')">
                 <label for="inputAssignee">Відповідальний:</label>
                 <select id="inputAssignee" class="form-control">
-                    <option value="0">Kek Mda</option>
-                    <option value="1" selected>Random Dude</option>
-                    <option value="2">Test Person</option>
-                    <option value="3">Ton Vredniyded</option>
+                    <option th:each="member : ${SCmembers}" th:value="${member.id}" th:selected="${ticket.solver == member}" th:text="${member.user.name}"></option>
                 </select>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" sec:authorize="hasRole('USER')" th:if="${user.name == ticket.creator.name}">
             <label for="commentArea">Коментар:</label>
             <textarea class="form-control" id="commentArea" rows="3"></textarea>
         </div>
