@@ -62,16 +62,26 @@ public class MainLogicController {
     }
 
     @PostMapping("/ticket")
-    public String postTicketAnswer(@RequestParam(name = "id") int id, Model model, HttpServletRequest request){
+    public String postTicketAnswer(@RequestParam(name = "id") int id, Model model, HttpServletRequest request) {
         String username = request.getUserPrincipal().getName();
+        Optional<Ticket> optionalTicket = ticketService.findById(id);
+
         User user = userService.findByName(username).get();
         Optional<SCMember> scUser = scMemberService.findByUser(user);
-        Optional<Ticket> optionalTicket = ticketService.findById(id);
         Ticket ticket = optionalTicket.get();
         String reply = request.getParameter("comment");
-        Answer answer = new Answer();
-        if (scUser.isPresent()){}
-
+        Byte status = Byte.parseByte(request.getParameter("status"));
+        Date date = new Date();
+        Answer answer;
+        if (scUser.isPresent()) {
+            SCMember scMember = scUser.get();
+            if (scMember.getId() == ticket.getSolver().getId()) scMember = null;
+            if (status == ticket.getStatus()) status = null;
+            answer = new Answer(ticket, user, scMember, status, reply, date);
+        } else {
+            answer = new Answer(ticket, user, reply, date);
+        }
+        answerService.save(answer);
         return "ticket";
     }
 

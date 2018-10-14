@@ -15,7 +15,7 @@ public class AnswerService {
     @Autowired
     private AnswerRepository answerRepository;
 
-    Answer save(Answer answer){
+    public Answer save(Answer answer){
         Answer savedAnswer = answerRepository.save(answer);
         return savedAnswer;
     }
