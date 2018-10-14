@@ -52,6 +52,7 @@ public class MainLogicController {
             if (!userOptional.isPresent())
                 throw new NoSuchFieldException("No user with username :'" + username + "'");
             user = userOptional.get();
+            model.addAttribute("sc", request.isUserInRole("SC"));
         }
 
         model.addAttribute("ticket", ticket);
