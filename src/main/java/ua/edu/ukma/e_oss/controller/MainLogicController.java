@@ -61,6 +61,20 @@ public class MainLogicController {
         return "ticket";
     }
 
+    @PostMapping("/ticket")
+    public String postTicketAnswer(@RequestParam(name = "id") int id, Model model, HttpServletRequest request){
+        String username = request.getUserPrincipal().getName();
+        User user = userService.findByName(username).get();
+        Optional<SCMember> scUser = scMemberService.findByUser(user);
+        Optional<Ticket> optionalTicket = ticketService.findById(id);
+        Ticket ticket = optionalTicket.get();
+        //String reply = request.getParameter()
+        Answer answer = new Answer();
+        if (scUser.isPresent()){}
+
+        return "ticket";
+    }
+
     @GetMapping("/userPage")
     private String getUserPage(Model model, HttpServletRequest request) throws NoSuchFieldException {
         String username = request.getUserPrincipal().getName();
@@ -104,4 +118,6 @@ public class MainLogicController {
 
         return "redirect:/ticket?id=" + ticket.getId();
     }
+
+
 }
