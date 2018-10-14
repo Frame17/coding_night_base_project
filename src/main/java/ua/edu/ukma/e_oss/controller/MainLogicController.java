@@ -68,7 +68,7 @@ public class MainLogicController {
         Optional<SCMember> scUser = scMemberService.findByUser(user);
         Optional<Ticket> optionalTicket = ticketService.findById(id);
         Ticket ticket = optionalTicket.get();
-        //String reply = request.getParameter()
+        String reply = request.getParameter("comment");
         Answer answer = new Answer();
         if (scUser.isPresent()){}
 
