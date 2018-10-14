@@ -62,8 +62,15 @@ public class MainLogicController {
     }
 
     @GetMapping("/userPage")
-    private String getUserPage(Model model) {
-        return "";  // todo - implement
+    private String getUserPage(Model model, HttpServletRequest request) throws NoSuchFieldException {
+        String username = request.getUserPrincipal().getName();
+        Optional<User> userOptional = userService.findByName(username);
+        if (!userOptional.isPresent())
+            throw new NoSuchFieldException("No user with username :'" + username + "'");
+        Iterable<Ticket> tickets = ticketService.findAllByCreator(userOptional.get());
+
+        model.addAttribute("tickets", tickets);
+        return "userTickets";  // todo - implement
     }
 
     @GetMapping("/mainPage")
