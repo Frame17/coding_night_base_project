@@ -17,7 +17,6 @@ import ua.edu.ukma.e_oss.service.TicketService;
 import ua.edu.ukma.e_oss.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 import java.util.Date;
 import java.util.Optional;
 
@@ -39,22 +38,26 @@ public class MainLogicController {
     }
 
     @GetMapping("/ticket")
-    private String getTicketPage(@RequestParam(name = "id") int id, Model model, HttpServletRequest request) throws NoSuchFieldException  {
+    private String getTicketPage(@RequestParam(name = "id") int id, Model model, HttpServletRequest request) throws NoSuchFieldException {
         Iterable<SCMember> SCmembers = scMemberService.findAll();
         Optional<Ticket> optionalTicket = ticketService.findById(id);
         if (!optionalTicket.isPresent())
             throw new ResourceNotFoundException();
         Ticket ticket = optionalTicket.get();
         Iterable<Answer> answers = answerService.findAllByTicket(ticket);
+        User user = null;
+        if (request.getUserPrincipal() != null) {
+            String username = request.getUserPrincipal().getName();
+            Optional<User> userOptional = userService.findByName(username);
+            if (!userOptional.isPresent())
+                throw new NoSuchFieldException("No user with username :'" + username + "'");
+            user = userOptional.get();
+        }
 
         model.addAttribute("ticket", ticket);
         model.addAttribute("SCmembers", SCmembers);
         model.addAttribute("answers", answers);
-        String username = request.getUserPrincipal().getName();
-        Optional<User> userOptional = userService.findByName(username);
-        if (!userOptional.isPresent())
-            throw new NoSuchFieldException("No user with username :'" + username + "'");
-        model.addAttribute("user", userOptional.get());
+        model.addAttribute("user", user);
         return "ticket";
     }
 
@@ -92,6 +95,6 @@ public class MainLogicController {
                 userOptional.get(), date);
         ticketService.save(ticket);
 
-        return "redirect:/ticket?id="+ticket.getId();
+        return "redirect:/ticket?id=" + ticket.getId();
     }
 }
