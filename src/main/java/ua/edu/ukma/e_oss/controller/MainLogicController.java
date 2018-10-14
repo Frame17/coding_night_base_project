@@ -70,19 +70,22 @@ public class MainLogicController {
         Optional<SCMember> scUser = scMemberService.findByUser(user);
         Ticket ticket = optionalTicket.get();
         String reply = request.getParameter("comment");
-        Byte status = Byte.parseByte(request.getParameter("status"));
+        Byte status = null; //TODO парсить
+
         Date date = new Date();
         Answer answer;
         if (scUser.isPresent()) {
             SCMember scMember = scUser.get();
             if (scMember.getId() == ticket.getSolver().getId()) scMember = null;
-            if (status == ticket.getStatus()) status = null;
+           // if (status!=null&&status == ticket.getStatus()) status = null; TODO
             answer = new Answer(ticket, user, scMember, status, reply, date);
         } else {
             answer = new Answer(ticket, user, reply, date);
         }
         answerService.save(answer);
-        return "ticket";
+        model.addAttribute("ticket", ticket);
+
+        return "redirect:/ticket?id="+ticket.getId();
     }
 
     @GetMapping("/userPage")
