@@ -60,7 +60,7 @@ public class MainLogicController {
     private String getMainPage(Model model) {
         Iterable<Ticket> tickets = ticketService.findAll();
         model.addAttribute("tickets", tickets);
-        return "tickets";
+        return "allTickets";
     }
 
     @GetMapping("/addTicket")
