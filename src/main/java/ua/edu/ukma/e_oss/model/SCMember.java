@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "sc_members")
 public class SCMember {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotNull
