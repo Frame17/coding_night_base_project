@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.e_oss.dao.SCMemberRepository;
 import ua.edu.ukma.e_oss.model.SCMember;
+import ua.edu.ukma.e_oss.model.User;
 
 import java.util.Optional;
 
@@ -57,4 +58,7 @@ public class SCMemberService {
         memberRepository.deleteAll();
     }
 
+    public Optional<SCMember> findByUser(User user){
+        return memberRepository.findByUser(user);
+    }
 }

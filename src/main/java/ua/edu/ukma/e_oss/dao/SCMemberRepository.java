@@ -2,6 +2,7 @@ package ua.edu.ukma.e_oss.dao;
 
 import org.springframework.data.repository.CrudRepository;
 import ua.edu.ukma.e_oss.model.SCMember;
+import ua.edu.ukma.e_oss.model.User;
 
 import java.util.Optional;
 
@@ -40,4 +41,6 @@ public interface SCMemberRepository extends CrudRepository<SCMember, Integer> {
     default void deleteAll() {
         throw new UnsupportedOperationException();
     }
+
+    Optional<SCMember> findByUser(User user);
 }
