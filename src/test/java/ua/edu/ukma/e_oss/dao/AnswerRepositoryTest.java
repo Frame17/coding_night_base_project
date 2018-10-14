@@ -8,6 +8,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -15,6 +17,9 @@ class AnswerRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;
+
+    @Autowired
+    private AnswerRepository answerRepository;
 
     @Test
     void save() {
@@ -59,5 +64,17 @@ class AnswerRepositoryTest {
 
     @Test
     void deleteAll1() {
+    }
+
+    @Test
+    void findAllByUser() {
+    }
+
+    @Test
+    void findAllByTicket() {
+    }
+
+    @Test
+    void findAllByScId() {
     }
 }

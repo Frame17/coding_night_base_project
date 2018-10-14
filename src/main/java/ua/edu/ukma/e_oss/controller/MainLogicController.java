@@ -5,14 +5,19 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.edu.ukma.e_oss.model.Answer;
 import ua.edu.ukma.e_oss.model.SCMember;
 import ua.edu.ukma.e_oss.model.Ticket;
+import ua.edu.ukma.e_oss.model.User;
 import ua.edu.ukma.e_oss.service.AnswerService;
 import ua.edu.ukma.e_oss.service.SCMemberService;
 import ua.edu.ukma.e_oss.service.TicketService;
+import ua.edu.ukma.e_oss.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -21,12 +26,14 @@ public class MainLogicController {
     private final SCMemberService scMemberService;
     private final TicketService ticketService;
     private final AnswerService answerService;
+    private final UserService userService;
 
     @Autowired
-    public MainLogicController(SCMemberService scMemberService, TicketService ticketService, AnswerService answerService) {
+    public MainLogicController(SCMemberService scMemberService, TicketService ticketService, AnswerService answerService, UserService userService) {
         this.scMemberService = scMemberService;
         this.ticketService = ticketService;
         this.answerService = answerService;
+        this.userService = userService;
     }
 
     @GetMapping("/ticket")
@@ -57,7 +64,26 @@ public class MainLogicController {
     }
 
     @GetMapping("/addTicket")
-    private String getAddTicket(Model model) {
+    private String getAddTicket(HttpServletRequest request, Model model) throws NoSuchFieldException {
+        String username = request.getUserPrincipal().getName();
+        Optional<User> userOptional = userService.findByName(username);
+        if (!userOptional.isPresent())
+            throw new NoSuchFieldException("No user with username :'" + username + "'");
+        model.addAttribute("user", userOptional.get());
         return "addTicket";
+    }
+
+
+    @PostMapping("/addTicket")
+    public String getFromMainPage(HttpServletRequest request, Model model) {
+        // UserRequest userRequest = new UserRequest(request.getParameter("text"), request.getParameter("topic"));
+        //requestService.save(userRequest);
+        //List<UserRequest> userRequests = requestService.findAll();
+        // model.addAttribute("userRequests", userRequests);
+        //  public Ticket(@NotNull String title, @NotNull String text, @NotNull User creator, @NotNull Date createdAt) {
+        Ticket ticket = new Ticket();
+        ticket.setTitle(request.getParameter("ticketTitle"));
+        ticket.setText(request.getParameter("ticketText"));
+        return "redirect:/ticket";
     }
 }
