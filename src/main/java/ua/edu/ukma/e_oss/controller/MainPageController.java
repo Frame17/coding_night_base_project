@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import ua.edu.ukma.e_oss.model.Ticket;
 import ua.edu.ukma.e_oss.model.User;
 import ua.edu.ukma.e_oss.service.TicketService;
@@ -33,7 +34,7 @@ public class MainPageController {
         Iterable<Ticket> tickets = ticketService.findAllByCreator(userOptional.get());
 
         model.addAttribute("tickets", tickets);
-        return "userTickets";  // todo - implement
+        return "userTickets";
     }
 
     @GetMapping("/mainPage")
@@ -41,5 +42,11 @@ public class MainPageController {
         Iterable<Ticket> tickets = ticketService.findAll();
         model.addAttribute("tickets", tickets);
         return "allTickets";
+    }
+
+    @PostMapping("/mainPage")
+    private String postMainPage(HttpServletRequest request, Model model) {
+        String search = request.getParameter("search");
+        return "redirect:/ticket?id=" ;
     }
 }
