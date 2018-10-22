@@ -25,7 +25,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Override
     Iterable<User> findAllById(Iterable<Integer> iterable);
 
-    public Optional<User> findByName(String name);
+    Optional<User> findByName(String name);
 
     @Override
     long count();
