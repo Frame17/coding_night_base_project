@@ -100,7 +100,7 @@ public class TicketsController {
 
 
     @PostMapping("/addTicket")
-    public String getFromMainPage(HttpServletRequest request, Model model) throws NoSuchFieldException {
+    public String postTicket(HttpServletRequest request, Model model) throws NoSuchFieldException {
         String username = request.getUserPrincipal().getName();
         Optional<User> userOptional = userService.findByName(username);
         if (!userOptional.isPresent())
