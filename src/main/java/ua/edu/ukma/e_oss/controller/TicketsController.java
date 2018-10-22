@@ -21,16 +21,14 @@ import java.util.Date;
 import java.util.Optional;
 
 @Controller
-public class MainLogicController {
-
-    private final SCMemberService scMemberService;
-    private final TicketService ticketService;
-    private final AnswerService answerService;
-    private final UserService userService;
-
+public class TicketsController {
+    private SCMemberService scMemberService;
+    private TicketService ticketService;
+    private AnswerService answerService;
+    private UserService userService;
 
     @Autowired
-    public MainLogicController(SCMemberService scMemberService, TicketService ticketService, AnswerService answerService, UserService userService) {
+    public TicketsController(SCMemberService scMemberService, TicketService ticketService, AnswerService answerService, UserService userService) {
         this.scMemberService = scMemberService;
         this.ticketService = ticketService;
         this.answerService = answerService;
@@ -90,25 +88,6 @@ public class MainLogicController {
         return "redirect:/ticket?id="+ticket.getId();
     }
 
-    @GetMapping("/userPage")
-    private String getUserPage(Model model, HttpServletRequest request) throws NoSuchFieldException {
-        String username = request.getUserPrincipal().getName();
-        Optional<User> userOptional = userService.findByName(username);
-        if (!userOptional.isPresent())
-            throw new NoSuchFieldException("No user with username :'" + username + "'");
-        Iterable<Ticket> tickets = ticketService.findAllByCreator(userOptional.get());
-
-        model.addAttribute("tickets", tickets);
-        return "userTickets";  // todo - implement
-    }
-
-    @GetMapping("/mainPage")
-    private String getMainPage(Model model) {
-        Iterable<Ticket> tickets = ticketService.findAll();
-        model.addAttribute("tickets", tickets);
-        return "allTickets";
-    }
-
     @GetMapping("/addTicket")
     private String getAddTicket(HttpServletRequest request, Model model) throws NoSuchFieldException {
         String username = request.getUserPrincipal().getName();
@@ -133,6 +112,4 @@ public class MainLogicController {
 
         return "redirect:/ticket?id=" + ticket.getId();
     }
-
-
 }
