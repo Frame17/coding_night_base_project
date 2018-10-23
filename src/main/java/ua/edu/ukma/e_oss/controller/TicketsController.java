@@ -65,12 +65,12 @@ public class TicketsController {
         String username = request.getUserPrincipal().getName();
         Optional<Ticket> optionalTicket = ticketService.findById(id);
 
+        //optional is not required - only signed in users can post answers
         User user = userService.findByName(username).get();
         Optional<SCMember> scUser = scMemberService.findByUser(user);//todo from select
 
         Ticket ticket = optionalTicket.get();
         String reply = request.getParameter("comment");
-        System.out.println(request.getParameter("status"));
         Byte status =Byte.parseByte( request.getParameter("status"));
         Date date = new Date();
         Answer answer;
