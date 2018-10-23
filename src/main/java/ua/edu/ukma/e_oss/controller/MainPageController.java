@@ -46,8 +46,7 @@ public class MainPageController {
     }
 
     @PostMapping("/mainPage")
-    private String postMainPage(@RequestParam(name = "search") String search, HttpServletRequest request, Model model) {
+    private String postMainPage(@RequestParam(name = "search") String search) {
         return "redirect:/searchResults?search="+search;
     }
-
 }
