@@ -51,9 +51,9 @@ public class MainPageController {
         int resultCount = 0;
         for (Ticket matchingTicket : matchingTickets)
             resultCount++;
-
-        model.addAttribute("matchingTickets", matchingTickets);
-        model.addAttribute("resultCount", resultCount);
-        return "redirect:/searchResults";
+        System.out.println(search);
+     //   model.addAttribute("matchingTickets", matchingTickets);
+     //   model.addAttribute("resultCount", resultCount);
+        return "redirect:/searchResults?search="+search;
     }
 }
