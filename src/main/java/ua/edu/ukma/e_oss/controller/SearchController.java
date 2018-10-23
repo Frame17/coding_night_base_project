@@ -12,8 +12,12 @@ import ua.edu.ukma.e_oss.service.TicketService;
 @Controller
 public class SearchController {
 
+    private TicketService ticketService;
+
     @Autowired
-    TicketService ticketService;
+    public SearchController(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
 
     @GetMapping("/searchResults")
     private String getSearchResults(@RequestParam(name = "search") String search, Model model) {
