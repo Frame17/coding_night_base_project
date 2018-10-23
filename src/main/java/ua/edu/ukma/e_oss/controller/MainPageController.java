@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.edu.ukma.e_oss.model.Ticket;
 import ua.edu.ukma.e_oss.model.User;
 import ua.edu.ukma.e_oss.service.TicketService;
@@ -45,8 +46,14 @@ public class MainPageController {
     }
 
     @PostMapping("/mainPage")
-    private String postMainPage(HttpServletRequest request, Model model) {
-        String search = request.getParameter("search");
-        return "redirect:/ticket?id=" ;
+    private String postMainPage(@RequestParam(name = "search") String search, HttpServletRequest request, Model model) {
+        Iterable<Ticket> matchingTickets = ticketService.findAllByTitleContains(search);
+        int resultCount = 0;
+        for (Ticket matchingTicket : matchingTickets)
+            resultCount++;
+
+        model.addAttribute("matchingTickets", matchingTickets);
+        model.addAttribute("resultCount", resultCount);
+        return "redirect:/searchResults";
     }
 }
