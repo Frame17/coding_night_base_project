@@ -45,8 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                // TODO: not to forget add path security in future @g_f0x
-                .antMatchers("/mainPage", "/ticket", "/", "/sk.png", "/css/**").permitAll()
+                .antMatchers("/mainPage", "/ticket", "/searchResults", "/", "/sk.png", "/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
