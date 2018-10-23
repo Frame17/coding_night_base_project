@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.edu.ukma.e_oss.model.Ticket;
 import ua.edu.ukma.e_oss.service.TicketService;
 
-
 @Controller
 public class SearchController {
 
@@ -27,7 +26,6 @@ public class SearchController {
             resultCount++;
         model.addAttribute("matchingTickets", matchingTickets);
         model.addAttribute("resultCount", resultCount);
-
         return "searchResults";
     }
 }

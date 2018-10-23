@@ -47,13 +47,7 @@ public class MainPageController {
 
     @PostMapping("/mainPage")
     private String postMainPage(@RequestParam(name = "search") String search, HttpServletRequest request, Model model) {
-        Iterable<Ticket> matchingTickets = ticketService.findAllByTitleContains(search);
-        int resultCount = 0;
-        for (Ticket matchingTicket : matchingTickets)
-            resultCount++;
-        System.out.println(search);
-     //   model.addAttribute("matchingTickets", matchingTickets);
-     //   model.addAttribute("resultCount", resultCount);
         return "redirect:/searchResults?search="+search;
     }
+
 }
