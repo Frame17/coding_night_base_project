@@ -16,14 +16,11 @@ public class SearchController {
     TicketService ticketService;
 
     @GetMapping("/searchResults")
-    private String getSearchResults(
-            @RequestParam(name = "search") String search,
-            Model model) throws NoSuchFieldException {
+    private String getSearchResults(@RequestParam(name = "search") String search, Model model) {
         Iterable<Ticket> matchingTickets = ticketService.findAllByTitleContains(search);
         int resultCount = 0;
         for (Ticket matchingTicket : matchingTickets)
             resultCount++;
-        System.out.println(search);
         model.addAttribute("matchingTickets", matchingTickets);
         model.addAttribute("resultCount", resultCount);
 
