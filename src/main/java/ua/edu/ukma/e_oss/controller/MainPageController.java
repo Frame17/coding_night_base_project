@@ -27,7 +27,7 @@ public class MainPageController {
     }
 
     @GetMapping("/userPage")
-    private String getUserPage(Model model, HttpServletRequest request) throws NoSuchFieldException {
+    public String getUserPage(Model model, HttpServletRequest request) throws NoSuchFieldException {
         String username = request.getUserPrincipal().getName();
         Optional<User> userOptional = userService.findByName(username);
         if (!userOptional.isPresent())
@@ -39,14 +39,14 @@ public class MainPageController {
     }
 
     @GetMapping("/mainPage")
-    private String getMainPage(Model model) {
+    public String getMainPage(Model model) {
         Iterable<Ticket> tickets = ticketService.findAll();
         model.addAttribute("tickets", tickets);
         return "allTickets";
     }
 
     @PostMapping("/mainPage")
-    private String postMainPage(@RequestParam(name = "search") String search) {
+    public String postMainPage(@RequestParam(name = "search") String search) {
         return "redirect:/searchResults?search="+search;
     }
 }
