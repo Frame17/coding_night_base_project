@@ -75,7 +75,10 @@ public class TicketsController {
         Date date = new Date();
         Answer answer;
         if (scUser.isPresent()) {
-            SCMember scMember = scUser.get();
+            //optional is not required - you can choose only from the list of existing sc members
+            SCMember scMember = scMemberService.findById(Integer.parseInt(request.getParameter("sc"))).get();
+            //if ticket solver is null assign chosen person
+            //todo add possibility to not assigning user when adding a commnet?
             if (ticket.getSolver() != null && scMember.getId() == ticket.getSolver().getId())
                 scMember = null;
             if (status == ticket.getStatus()) status = null;
