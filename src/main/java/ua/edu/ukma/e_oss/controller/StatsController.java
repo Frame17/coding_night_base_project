@@ -20,10 +20,9 @@ public class StatsController {
     }
 
     /**
-     * Stats are showing those people who actually completed the task
-     * (solved the ticket). Also the stats include only solved tickets
+     * Stats are showing those people who actually completed the task (solved the ticket).
+     * Also the stats include only solved tickets
      */
-    // todo - verify the "grading" process
     // todo - possibly allow multiple solvers
     @GetMapping("/stats")
     public String getStatsPage(Model model) {
@@ -34,9 +33,8 @@ public class StatsController {
             String name = ticket.getSolver().getUser().getName();
             stats.compute(name, (key, oldValue) -> oldValue == null ? 1 : oldValue + 1);
         });
-        // todo - consider sorting by value
 
-        model.addAttribute("stats", stats);
+        model.addAttribute("stats", stats.entrySet());
         return "stats";
     }
 }
