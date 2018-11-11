@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.edu.ukma.e_oss.model.Ticket;
 import ua.edu.ukma.e_oss.service.TicketService;
 
+import java.util.ArrayList;
+
 @Controller
 public class SearchController {
 
@@ -26,6 +28,20 @@ public class SearchController {
             resultCount++;
         model.addAttribute("matchingTickets", matchingTickets);
         model.addAttribute("resultCount", resultCount);
+        return "searchResults";
+    }
+
+    @GetMapping("/userTickets")
+    private String getSearchResults(@RequestParam(name = "search") String search, @RequestParam(name = "id") int userId,
+                                    Model model) {
+        Iterable<Ticket> matchingTickets = ticketService.findAllByTitleContains(search);
+        ArrayList<Ticket> userTickets = new ArrayList<>();
+        for (Ticket matchingTicket : matchingTickets)
+            if (matchingTicket.getCreator().getId() == userId)
+                userTickets.add(matchingTicket);
+
+        model.addAttribute("matchingTickets", userTickets);
+        model.addAttribute("resultCount", userTickets.size());
         return "searchResults";
     }
 }
