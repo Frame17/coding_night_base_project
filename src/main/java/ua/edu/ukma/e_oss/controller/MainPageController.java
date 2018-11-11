@@ -51,12 +51,7 @@ public class MainPageController {
     }
 
     @PostMapping("/userPage")
-    public String postUserPage(@RequestParam(name = "search") String search, HttpServletRequest request) throws NoSuchFieldException {
-        String username = request.getUserPrincipal().getName();
-        Optional<User> userOptional = userService.findByName(username);
-        if (!userOptional.isPresent())
-            throw new NoSuchFieldException("No user with username :'" + username + "'");
-
-        return "redirect:/userTickets?search=" + search + "?id=" + userOptional.get().getId();
+    public String postUserPage(@RequestParam(name = "search") String search) {
+        return "redirect:/userTickets?search=" + search;
     }
 }
