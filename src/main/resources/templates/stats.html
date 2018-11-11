@@ -39,9 +39,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item : ${items}">
-                <td th:text="${item[1]}">1</td>
-                <td th:text ="${item[2]}">Trokhym</td>
+            <tr th:each="item : ${stats}">
+                <td th:text="${item.getKey()}">1</td>
+                <td th:text ="${item.getValue()}">Trokhym</td>
             </tr>
             </tbody>
         </table>
