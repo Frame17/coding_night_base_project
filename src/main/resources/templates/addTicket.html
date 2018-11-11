@@ -1,58 +1,60 @@
 <html>
-    <head>
-        <title>Додати новий запит</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href ="/css/styles.css" rel="stylesheet">
-        <meta charset="utf-8">
-        <!-- <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.8.94/css/materialdesignicons.min.css"> -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    </head>
-    <body>
-        <nav class="orange navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Додати запит</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+<head>
+    <title>Додати новий запит</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/css/styles.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <!-- <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.8.94/css/materialdesignicons.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+<nav class="orange navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Додати запит</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
+            aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarsExample05">
-            <ul class="navbar-nav mr-auto">
-                <li class=" nav-item active ">
-                    <a class="nav-link" href="/mainPage">Запити</a>
-                </li>
-                <li class=" nav-item active">
-                    <a class="nav-link" href="/userPage">Мої запити</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-md-0">
-                <input class="form-control" type="text" placeholder="Пошук">
-            </form>
+    <div class="collapse navbar-collapse" id="navbarsExample05">
+        <ul class="navbar-nav mr-auto">
+            <li class=" nav-item active ">
+                <a class="nav-link" href="/mainPage">Запити</a>
+            </li>
+            <li class=" nav-item active">
+                <a class="nav-link" href="/userPage">Мої запити</a>
+            </li>
+            <li class=" nav-item active">
+                <a class="nav-link" href="/stats">Статистика</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="main container-fluid">
+    <h2>Додати новий запит</h2>
+    <form lang="uk" id="ticketForm" method="post">
+        <div class="form-group">
+            <label for="ticketName">Назва запиту</label>
+            <input type="text" class="form-control" id="ticketName" name="title" placeholder="Введіть назву запиту">
         </div>
-        </nav>
-        <div class="main container-fluid">
-            <h2>Додати новий запит</h2>
-            <form lang="uk" id="ticketForm" method="post">
-                <div class="form-group">
-                    <label for="ticketName">Назва запиту</label>
-                    <input type="text" class="form-control" id="ticketName" name="title" placeholder="Введіть назву запиту">
-                </div>
-                <div class="form-group">
-                    <label for="ticketText">Текст запиту</label>
-                    <textarea class="form-control" id="ticketText" name="text" rows="7"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Відправити</button>
-              </form>
+        <div class="form-group">
+            <label for="ticketText">Текст запиту</label>
+            <textarea class="form-control" id="ticketText" name="text" rows="7"></textarea>
         </div>
-    </body>
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-    <script type="text/javascript">
-        $("#ticketForm").submit(function (event) {
-            if ($("#ticketName").val() == "" || $("#ticketText").val() == "") {
-                alert("Потрібно заповнити всі поля");
-                event.preventDefault();
-            }
-        });
-    </script>
+        <button type="submit" class="btn btn-primary">Відправити</button>
+    </form>
+</div>
+</body>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $("#ticketForm").submit(function (event) {
+        if ($("#ticketName").val() == "" || $("#ticketText").val() == "") {
+            alert("Потрібно заповнити всі поля");
+            event.preventDefault();
+        }
+    });
+</script>
 </html>

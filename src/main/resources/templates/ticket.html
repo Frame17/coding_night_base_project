@@ -4,13 +4,15 @@
     <meta charset="utf-8">
     <title th:text="${ticket.title}">Запит #228 - Додати неонове освітлення до вбиралень</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link href ="/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="/css/styles.css" rel="stylesheet">
 </head>
 <body>
 <nav class="orange navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/mainPage">Запит</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
+            aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -22,18 +24,20 @@
             <li class=" nav-item active">
                 <a class="nav-link" href="/userPage">Мої заявки</a>
             </li>
+            <li class=" nav-item active">
+                <a class="nav-link" href="/stats">Статистика</a>
+            </li>
         </ul>
-        <form class="form-inline my-2 my-md-0">
-            <input class="form-control" type="text" placeholder="Пошук">
-        </form>
     </div>
 </nav>
 <div class="container">
     <h2>#<span th:text="${ticket.id}"></span> - <span th:text="${ticket.title}"></span></h2>
-    <p th:text="${ticket.text}">У туалетах Академії дуже сумно, особливо вночі, тому хотілося б зробити час, проведений у вбиральні трохи яскравішим</p>
+    <p th:text="${ticket.text}">У туалетах Академії дуже сумно, особливо вночі, тому хотілося б зробити час, проведений
+        у вбиральні трохи яскравішим</p>
     <ul>
         <li>Створив: <a href="#" th:text="${ticket.creator.name}">Lolkek Cheburek</a></li>
-        <li>Призначено: <a href="#" th:text="${ticket.solver != null} ? ${ticket.solver.user.name} : 'В очікуванні'">Random Dude</a></li>
+        <li>Призначено: <a href="#" th:text="${ticket.solver != null} ? ${ticket.solver.user.name} : 'В очікуванні'">Random
+            Dude</a></li>
         <li th:if="${ticket.status} == 0">Стан: В очікуванні</li>
         <li th:if="${ticket.status} == 1">Стан: У роботі</li>
         <li th:if="${ticket.status} == 2">Стан: Відхилено</li>
@@ -45,20 +49,22 @@
         </div>
         <div class="card-body">
             <ul>
-                <li th:if="${answer.scId} != null">Запит призначено <span th:text="${answer.scId.user.name}"></span></li>
+                <li th:if="${answer.scId} != null">Запит призначено <span th:text="${answer.scId.user.name}"></span>
+                </li>
                 <li th:if="${answer.status} == 0">Стан запиту змінено на <i>"В очікуванні"</i></li>
                 <li th:if="${answer.status} == 1">Стан запиту змінено на <i>"У роботі"</i></li>
                 <li th:if="${answer.status} == 2">Стан запиту змінено на <i>"Відхилено"</i></li>
                 <li th:if="${answer.status} == 3">Стан запиту змінено на <i>"Виконано"</i></li>
             </ul>
-            <p th:if="${answer.reply} != null" th:text="${answer.reply}">Створено запит "Додати неонове освітлення до вбиралень"</p>
+            <p th:if="${answer.reply} != null" th:text="${answer.reply}">Створено запит "Додати неонове освітлення до
+                вбиралень"</p>
         </div>
     </div>
     <hr>
     <h4>Прокоментувати або змінити запит</h4>
     <form id="answerForm" method="post">
-        <input type="hidden" name="currSc" th:if="${ticket.solver != null}" th:value="${ticket.solver.id}" />
-        <input type="hidden" name="currStatus" th:value="${ticket.status}" />
+        <input type="hidden" name="currSc" th:if="${ticket.solver != null}" th:value="${ticket.solver.id}"/>
+        <input type="hidden" name="currStatus" th:value="${ticket.status}"/>
         <div class="form-row">
             <div class="form-group col-md-6" sec:authorize="hasRole('SC')">
                 <label for="inputStatus">Статус:</label>
@@ -72,11 +78,13 @@
             <div class="form-group col-md-6" sec:authorize="hasRole('SC')">
                 <label for="inputAssignee">Відповідальний:</label>
                 <select id="inputAssignee" class="form-control" name="sc">
-                    <option th:each="member : ${SCmembers}" th:value="${member.id}" th:selected="${ticket.solver == member}" th:text="${member.user.name}"></option>
+                    <option th:each="member : ${SCmembers}" th:value="${member.id}"
+                            th:selected="${ticket.solver == member}" th:text="${member.user.name}"></option>
                 </select>
             </div>
         </div>
-        <div class="form-group" sec:authorize="hasRole('USER')" th:if="${user != null && user.name == ticket.creator.name || sc}">
+        <div class="form-group" sec:authorize="hasRole('USER')"
+             th:if="${user != null && user.name == ticket.creator.name || sc}">
             <label for="commentArea">Коментар:</label>
             <textarea class="form-control" id="commentArea" name="comment" rows="3"></textarea>
         </div>
@@ -88,25 +96,25 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 <script type="text/javascript">
-$("#inputStatus").change(function() {
-    if (this.value == 2 || this.value == 3) {
-        $("#inputAssignee").prop("disabled", true);
-        $("#inputAssignee").val($("input[name=currSc]").val());
-    } else {
-        $("#inputAssignee").prop("disabled", false);
-    }
-});
+    $("#inputStatus").change(function () {
+        if (this.value == 2 || this.value == 3) {
+            $("#inputAssignee").prop("disabled", true);
+            $("#inputAssignee").val($("input[name=currSc]").val());
+        } else {
+            $("#inputAssignee").prop("disabled", false);
+        }
+    });
 
-$("#submitButton").click(function() {
-    // Check if nothing changed
-    if ($("#inputAssignee").val() == $("input[name=currSc]").val() && $("#inputStatus").val() == $("input[name=currStatus]").val() && $("#commentArea").val() == "") {
-        // Nothing changed, dropping
-        alert("Немає змін для збереження");
-        return;
-    }
-    $("#inputAssignee").prop("disabled", false);
-    $("#answerForm").submit();
-});
+    $("#submitButton").click(function () {
+        // Check if nothing changed
+        if ($("#inputAssignee").val() == $("input[name=currSc]").val() && $("#inputStatus").val() == $("input[name=currStatus]").val() && $("#commentArea").val() == "") {
+            // Nothing changed, dropping
+            alert("Немає змін для збереження");
+            return;
+        }
+        $("#inputAssignee").prop("disabled", false);
+        $("#answerForm").submit();
+    });
 
 
 </script>
