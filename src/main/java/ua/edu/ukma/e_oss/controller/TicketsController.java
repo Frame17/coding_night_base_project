@@ -63,29 +63,32 @@ public class TicketsController {
     @PostMapping("/ticket")
     public String postTicketAnswer(@RequestParam(name = "id") int id, Model model, HttpServletRequest request) {
         String username = request.getUserPrincipal().getName();
-        Optional<Ticket> optionalTicket = ticketService.findById(id);
+        Ticket ticket = ticketService.findById(id).get();   // retrieved ticket always exists
+        User user = userService.findByName(username).get();    //only signed in users can post answers
+        Optional<SCMember> scUser = scMemberService.findByUser(user);
 
-        User user = userService.findByName(username).get();
-        Optional<SCMember> scUser = scMemberService.findByUser(user);//todo from select
-
-        Ticket ticket = optionalTicket.get();
         String reply = request.getParameter("comment");
-        System.out.println(request.getParameter("status"));
-        Byte status =Byte.parseByte( request.getParameter("status"));
+        Byte status = Byte.parseByte(request.getParameter("status"));
         Date date = new Date();
         Answer answer;
-        if (scUser.isPresent()&&request.getParameter("sc")!=null) {
-            SCMember scMember = scMemberService.findById(Integer.parseInt(request.getParameter("sc"))).get();
-            if (scMember.getId() == ticket.getSolver().getId()) scMember = null;
-            if (status == ticket.getStatus()) status = null;
+        if (scUser.isPresent()) {
+            int scMemberId = Integer.parseInt(request.getParameter("sc"));
+            SCMember scMember = scMemberService.findById(scMemberId).get();     // scMember always exists
+            // if ticket solver is null assign chosen person
+            // todo add possibility to not assigning user when adding a comment?
+            if (ticket.getSolver() != null && scMember.getId() == ticket.getSolver().getId())
+                scMember = null;
+            if (status == ticket.getStatus())
+                status = null;
             answer = new Answer(ticket, user, scMember, status, reply, date);
         } else {
             answer = new Answer(ticket, user, reply, date);
         }
+
         answerService.save(answer);
         model.addAttribute("ticket", ticket);
         model.addAttribute("answer", answer);
-        return "redirect:/ticket?id="+ticket.getId();
+        return "redirect:/ticket?id=" + ticket.getId();
     }
 
     @GetMapping("/addTicket")
